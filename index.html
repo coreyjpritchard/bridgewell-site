@@ -625,6 +625,10 @@ footer{background:var(--ink);color:var(--paper);}
             <input type="email" id="email" name="email" placeholder="you@yourbusiness.co.uk" autocomplete="email" required aria-describedby="emailHint">
             <span class="hint" id="emailHint">One report. No newsletter list unless you ask.</span>
           </div>
+          <div aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;">
+            <label for="company">Company (leave this blank)</label>
+            <input type="text" id="company" name="company" tabindex="-1" autocomplete="off">
+          </div>
           <button class="btn" type="submit">Run my free Snapshot <span class="arrow" aria-hidden="true">&#8594;</span></button>
           <p class="formbox__foot">No card. No sales call unless you want one.</p>
           <p class="form-msg" id="formMsg" role="status" aria-live="polite"><span class="ic" aria-hidden="true">&#10003;</span> <span>Thanks — your Snapshot is queued. Check your inbox within 2 working days.</span></p>
@@ -888,13 +892,26 @@ footer{background:var(--ink);color:var(--paper);}
   var form = document.getElementById('snapForm');
   var msg = document.getElementById('formMsg');
   if(!form) return;
+  var ENDPOINT = 'https://bridgewell-snapshot-intake.bridgewellmedia.workers.dev/';
   form.addEventListener('submit', function(e){
-    // Let native validation surface first.
-    if(!form.checkValidity()){ return; }
+    if(!form.checkValidity()){ return; }  // let native validation surface first
     e.preventDefault();
-    if(msg){ msg.classList.add('show'); }
     var btn = form.querySelector('button[type=submit]');
-    if(btn){ btn.textContent = 'Queued ✓'; btn.disabled = true; }
+    var payload = {
+      siteUrl: (form.querySelector('#siteUrl')||{}).value || '',
+      email: (form.querySelector('#email')||{}).value || '',
+      company: (form.querySelector('#company')||{}).value || ''  // honeypot
+    };
+    if(btn){ btn.disabled = true; btn.textContent = 'Sending…'; }
+    fetch(ENDPOINT, { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(payload) })
+      .then(function(r){ if(!r.ok) throw new Error('bad'); return r.json(); })
+      .then(function(){ if(msg){ msg.classList.add('show'); } if(btn){ btn.textContent = 'Queued ✓'; } })
+      .catch(function(){
+        if(btn){ btn.disabled = false; btn.textContent = 'Try again'; }
+        var t = msg && msg.querySelector('span:last-child');
+        if(t){ t.textContent = 'Sorry — something went wrong. Please email hello@bridgewell.media.'; }
+        if(msg){ msg.classList.add('show'); }
+      });
   });
 })();
 </script>
