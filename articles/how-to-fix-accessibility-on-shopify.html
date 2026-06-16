@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How to Fix Accessibility Issues on Shopify — Bridgewell Media</title>
+<meta name="description" content="The most common Shopify accessibility problems — missing alt text, unlabelled forms, broken dropdowns — and exactly how to fix them without a developer on">
+<link rel="canonical" href="https://bridgewellmedia.com/articles/how-to-fix-accessibility-on-shopify.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@700;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/articles/articles.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "How to Fix Accessibility Issues on Shopify", "description": "The most common Shopify accessibility problems — missing alt text, unlabelled forms, broken dropdowns — and exactly how to fix them without a developer on", "about": "Web accessibility", "author": {"@type": "Organization", "name": "Bridgewell Media"}, "publisher": {"@type": "Organization", "name": "Bridgewell Media"}, "mainEntityOfPage": "https://bridgewellmedia.com/articles/how-to-fix-accessibility-on-shopify.html"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Does Shopify have built-in accessibility features?", "acceptedAnswer": {"@type": "Answer", "text": "Shopify's checkout has improved significantly and handles some basics, but your theme, product images, and custom sections introduce most of the gaps. Those are your responsibility to fix."}}, {"@type": "Question", "name": "Will an accessibility overlay fix my Shopify store?", "acceptedAnswer": {"@type": "Answer", "text": "No. Overlays like AccessiBe and UserWay don't fix the underlying code — they add a JavaScript layer on top of broken markup. Screen-reader users regularly report overlays making sites harder to use, and several overlay vendors have faced legal action in the US and UK."}}, {"@type": "Question", "name": "Can I fix Shopify accessibility issues without touching code?", "acceptedAnswer": {"@type": "Answer", "text": "A fair amount, yes. Alt text, some form labels, and heading structure can be edited inside the Shopify admin or theme customiser. The trickier gaps — unlabelled icon buttons, custom dropdowns, missing focus rings — need a small amount of code."}}, {"@type": "Question", "name": "How much of my Shopify accessibility can an automated scanner catch?", "acceptedAnswer": {"@type": "Answer", "text": "Automated tools reliably find around 30–40% of WCAG issues. The rest — things like logical reading order, meaningful alt text, and keyboard traps in custom menus — need a human to check."}}]}</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to main content</a>
+<header class="topbar">
+  <div class="topbar__inner">
+    <a class="brand" href="/" aria-label="Bridgewell Media — home">
+      <span class="brand__mark" aria-hidden="true">B</span>
+      <span class="brand__name">Bridgewell<span>/</span>Media</span>
+    </a>
+    <nav class="nav" aria-label="Primary">
+      <ul class="nav__links">
+        <li><a href="/#services">Services</a></li>
+        <li><a href="/#why">Why a11y</a></li>
+        <li><a href="/#how">Process</a></li>
+        <li><a href="/articles/">Guides</a></li>
+        <li><a href="/#pricing">Pricing</a></li>
+      </ul>
+      <div class="nav__cta">
+        <a class="btn btn--blue" href="/#snapshot">Free audit <span class="arrow" aria-hidden="true">&#8594;</span></a>
+      </div>
+    </nav>
+  </div>
+</header>
+<main id="main">
+<article class="article band">
+  <div class="wrap">
+    <span class="eyebrow">Platform how-to</span>
+    <h1>How to Fix Accessibility Issues on Shopify</h1>
+    <p class="article__meta mono">Step-by-step guide</p>
+    <div class="prose">
+<p>Shopify stores are built fast, and that speed has a cost. Themes ship with missing image descriptions, checkout forms that screen readers can't parse, and product dropdowns assembled from <code>&lt;div&gt;</code> tags that a keyboard can never reach. None of this is unusual — it's just how templated e-commerce works when accessibility isn't the priority.</p>
+<p>The good news is that a meaningful share of these gaps are fixable without a developer, and the rest require only targeted code changes, not a rebuild. This article walks through the most common issues, how to find them, and exactly what to do on Shopify.</p>
+<h2>The usual accessibility gaps on Shopify</h2>
+<h3>Product images with no description</h3>
+<p>Every product image on your store needs a text alternative that tells a screen reader what the image shows. This is WCAG success criterion 1.1.1 (Non-text Content). When it's missing, a screen reader announces something like "image_3847f.jpg" — or nothing at all. That's not just an accessibility problem; it also removes indexable content from your product pages.</p>
+<p>The gap is widespread on Shopify because images can be uploaded without ever filling in an alt text field, and most themes don't enforce it.</p>
+<h3>Unlabelled form fields</h3>
+<p>Your newsletter signup, search bar, contact form, and any fields you've added via apps all need visible labels that are programmatically associated with their inputs. WCAG 4.1.2 (Name, Role, Value) requires that every user-interface component has a name a screen reader can announce. When a field says "Email" only via placeholder text inside the box, that placeholder disappears the moment someone starts typing — leaving them no way to check what they're filling in.</p>
+<p>Shopify's native checkout has improved here, but third-party apps and theme-added forms frequently ship without proper <code>&lt;label&gt;</code> elements.</p>
+<h3>Custom interactive elements that aren't keyboard-reachable</h3>
+<p>This is where Shopify stores tend to fail silently. Colour swatches, size selectors, quantity steppers, and mobile menus are often built from <code>&lt;div&gt;</code> and <code>&lt;span&gt;</code> elements styled to look like buttons and dropdowns. Those elements are invisible to keyboards and screen readers unless extra ARIA attributes are added — and they usually aren't.</p>
+<p>A customer navigating by keyboard (common for people with motor impairments, and for anyone who just prefers keyboard navigation) can reach your product page but not select a variant or add an item to the cart. That's a direct revenue loss, not an abstract compliance issue. It also falls under WCAG 4.1.2.</p>
+<h3>Icon-only buttons with no accessible name</h3>
+<p>Cart icons, search icons, wishlist buttons, and social share links frequently have no text. Visually, a shopping-bag icon is unambiguous. To a screen reader, a button with no label is announced as "button" — or the button's raw file name. Customers using screen readers have to guess what it does. This also breaks WCAG 4.1.2.</p>
+<h3>Focus indicators removed by the theme</h3>
+<p>When you navigate with a keyboard, a visible outline tracks where you are on the page. Many Shopify themes remove this outline in their CSS — it's considered visually untidy — without adding a replacement. This makes keyboard navigation functionally impossible for sighted users who rely on it. It also affects WCAG 1.4.3's broader intent around visual presentation, and it will be caught as a failure under WCAG 2.4.7 (Focus Visible).</p>
+<p>---</p>
+<h2>How to find them</h2>
+<p><strong>Start with a free automated scan.</strong> Tools like <a href="https://wave.webaim.org">WAVE</a> or the axe browser extension (available for Chrome and Firefox) will surface missing alt text, unlabelled inputs, and some ARIA errors in seconds. Run it on your homepage, a product page, a collection page, and your checkout. These tools catch roughly 30–40% of real WCAG issues — that figure is worth repeating, because automated passes are often treated as green lights when they aren't.</p>
+<p><strong>Do a keyboard-only walkthrough.</strong> Unplug your mouse and try to browse your store using only Tab, Shift+Tab, Enter, and arrow keys. Can you open the navigation menu? Select a product size? Add it to the cart? Complete a purchase? If you get stuck, you've found a gap.</p>
+<p><strong>Check your images in the admin.</strong> Go to <strong>Products</strong> in your Shopify admin, open a few products, and look at whether the alt text field under each image is filled in. Blank fields are 1.1.1 failures waiting to be fixed.</p>
+<p><strong>Inspect form labels in your browser.</strong> Right-click any form field and choose Inspect. Look at the HTML. If there's a <code>&lt;label&gt;</code> element that has a <code>for</code> attribute matching the input's <code>id</code>, the label is properly associated. If you see only a placeholder or a <code>&lt;div&gt;</code> styled as a label, it isn't.</p>
+<p>---</p>
+<h2>How to fix each</h2>
+<h3>Fixing missing alt text on product images</h3>
+<p><strong>In the Shopify admin:</strong></p>
+<ol><li>Go to <strong>Products</strong> → select a product.</li><li>Click on a product image.</li><li>In the panel that appears, fill in the <strong>Alt text</strong> field. Describe what the image shows: "Dark blue merino wool crew-neck sweater, front view" is useful. "Sweater" is not. "IMG_4829" is worse than nothing.</li><li>Save.</li></ol>
+<p>Do the same for collection images: <strong>Products</strong> → <strong>Collections</strong> → select a collection → click the collection image.</p>
+<p>For images added through the <strong>Files</strong> section or theme banners, you'll need to edit the alt text in the theme customiser or directly in the theme's Liquid files, depending on how your theme handles them.</p>
+<p>For purely decorative images (dividers, background textures, flourishes), you want an *empty* alt attribute — <code>alt=""</code> — so screen readers skip them. You set this in the Liquid template, not the admin.</p>
+<h3>Fixing unlabelled form fields</h3>
+<p><strong>Newsletter popup / footer signup (theme customiser):</strong> Most themes expose a label field for the newsletter input in the theme customiser (<strong>Online Store</strong> → <strong>Themes</strong> → <strong>Customise</strong>). Look in the section settings for the footer or popup. If there's a "Label" field, fill it in. If the field exists only as a placeholder, you'll need to edit the theme code.</p>
+<p><strong>In the Liquid code:</strong></p>
+<p>Find the template file for the form (typically <code>sections/footer.liquid</code> or a popup section). Confirm that the input has a matching <code>&lt;label&gt;</code>:</p>
+<p>``<code>html &lt;label for="newsletter-email"&gt;Email address&lt;/label&gt; &lt;input type="email" id="newsletter-email" name="contact[email]" placeholder="you@example.com"&gt; </code>``</p>
+<p>The <code>for</code> attribute on the label must match the <code>id</code> on the input exactly. If there's no <code>&lt;label&gt;</code> at all, add one. If there's only a placeholder, add a visible label (or a visually hidden one using a <code>.visually-hidden</code> CSS class if your design requires it).</p>
+<h3>Fixing icon-only buttons</h3>
+<p>In your theme's Liquid files, find the cart and search button markup. They typically look something like:</p>
+<p>``<code>html &lt;button class="cart-icon"&gt;{% render 'icon-cart' %}&lt;/button&gt; </code>``</p>
+<p>Add an <code>aria-label</code> attribute:</p>
+<p>``<code>html &lt;button class="cart-icon" aria-label="Open cart"&gt;{% render 'icon-cart' %}&lt;/button&gt; </code>``</p>
+<p>For social share links, add descriptive link text that's hidden visually if needed:</p>
+<p>``<code>html &lt;a href="..." aria-label="Share on Instagram"&gt;{% render 'icon-instagram' %}&lt;/a&gt; </code>``</p>
+<h3>Fixing custom variant selectors and dropdowns</h3>
+<p>If your theme uses <code>&lt;div&gt;</code>-based colour swatches or size buttons instead of a native <code>&lt;select&gt;</code>, the fastest reliable fix is to replace them with native elements. A native <code>&lt;select&gt;</code> is keyboard-accessible, announced correctly by screen readers, and requires no ARIA at all.</p>
+<p>If the design genuinely requires a custom widget (styled swatches, for example), each option needs <code>role="radio"</code> or <code>role="option"</code>, a matching <code>aria-label</code>, and keyboard event handling so arrow keys cycle through options. This is a code task, but it's a contained one — a developer familiar with ARIA patterns can typically do it in a few hours per component.</p>
+<h3>Restoring focus indicators</h3>
+<p>In your theme's CSS, search for <code>outline: none</code> or <code>outline: 0</code>. These declarations strip the focus ring. Remove them, or replace with a deliberate visible style:</p>
+<p>``<code>css :focus-visible { outline: 3px solid #005FCC; outline-offset: 2px; } </code>``</p>
+<p>Using <code>:focus-visible</code> rather than <code>:focus</code> means the outline only appears for keyboard navigation, not mouse clicks — so it won't affect your visual design for most users.</p>
+<p>---</p>
+<h2>What still needs a human</h2>
+<p>Automated scanners and the fixes above will close a real share of your store's gaps. But several important issues can't be caught by a script:</p>
+<p><strong>Meaningful alt text versus present alt text.</strong> A scanner confirms an alt attribute exists. It can't tell you whether "product image" is meaningful or whether the description matches what's actually shown. Only a human can judge whether someone who can't see the image gets enough from the text.</p>
+<p><strong>Reading order.</strong> Screen readers announce content in DOM order, which may not match the visual layout, particularly with CSS Grid and Flexbox. A scanner won't flag this. A five-minute screen-reader walkthrough will.</p>
+<p><strong>Error messages tied to the right field.</strong> When a checkout form rejects an entry, the error message needs to be programmatically associated with the field that caused it (WCAG 4.1.2). A scanner may miss this if it doesn't trigger a real validation error during its crawl.</p>
+<p><strong>Keyboard traps in custom menus and modals.</strong> A scanner can flag the absence of ARIA, but can't always detect whether focus gets stuck inside a component or escapes somewhere unexpected during real keyboard navigation.</p>
+<p><strong>Video and audio content.</strong> If your product pages include video demonstrations, those need captions for deaf customers and audio description for blind customers. A scanner won't watch the video and evaluate caption accuracy.</p>
+<p>This is why we offer the <strong>Accessibility Snapshot</strong>: an automated WCAG scan combined with a short human review of your most important pages, delivered as a plain-English report. It tells you what a scanner found, what a human spotted on top of that, and — concretely — which issues carry the most risk and the most effort to fix. No obligation, no sales call. If you'd like one for your Shopify store, the link below takes about 30 seconds to fill in.</p>
+    </div>
+
+  </div>
+</article>
+<section class="finalcta" aria-labelledby="final-h">
+  <div class="finalcta__inner wrap" style="padding-left:24px;padding-right:24px;max-width:1240px;">
+    <div>
+      <span class="eyebrow" style="background:var(--teal);color:#FFFFFF;border-color:#FFFFFF;">Free &middot; No catch</span>
+      <h2 id="final-h" style="margin-top:1rem;">See what your site is shutting out — for free.</h2>
+      <p>Drop in your website address and we'll run an automated WCAG 2.2 check plus a quick human review. A plain-English report lands in your inbox — what's failing, why it matters, and what it'd take to fix. No card, no sales pressure.</p>
+    </div>
+    <div class="finalcta__act">
+      <a class="btn btn--sun" href="/#snapshot">Get a free Accessibility Snapshot <span class="arrow" aria-hidden="true">&#8594;</span></a>
+      <a class="btn btn--ghost" href="mailto:hello@bridgewell.media" style="border-color:#FFFFFF;color:#FFFFFF;background:transparent;">Or just email us</a>
+      <span class="finalcta__note">Typical reply time: same working day.</span>
+    </div>
+  </div>
+</section>
+</main>
+<footer aria-labelledby="foot-h">
+  <h2 id="foot-h" class="skip">Footer</h2>
+  <div class="foot__grid wrap" style="padding-left:24px;padding-right:24px;max-width:1240px;">
+    <div class="foot__brand">
+      <span class="brand__name" style="font-family:'Archivo';font-weight:900;text-transform:uppercase;font-size:1.3rem;">Bridgewell<span>/</span>Media</span>
+      <p>Honest, accessible web design for UK small businesses. We practice what we sell — this site is built to the same standard we hold yours to.</p>
+      <span class="a11y-badge mono" style="margin-top:1.2rem;"><span aria-hidden="true">&#10003;</span> Built to WCAG 2.2 AA</span>
+    </div>
+    <div class="foot__col">
+      <h4>Services</h4>
+      <ul>
+        <li><a href="/#services">Website design &amp; build</a></li>
+        <li><a href="/#services">Accessibility audit &amp; fixes</a></li>
+        <li><a href="/#services">Care plans</a></li>
+        <li><a href="/#snapshot">Free Snapshot</a></li>
+      </ul>
+    </div>
+    <div class="foot__col">
+      <h4>Guides</h4>
+      <ul>
+        <li><a href="/articles/">All guides</a></li>
+        <li><a href="/#why">Why accessibility</a></li>
+        <li><a href="/#how">Our process</a></li>
+        <li><a href="/#pricing">Pricing</a></li>
+      </ul>
+    </div>
+    <div class="foot__col">
+      <h4>Contact</h4>
+      <ul>
+        <li><a href="mailto:hello@bridgewell.media">hello@bridgewell.media</a></li>
+        <li><a href="tel:+441132000000">0113 200 0000</a></li>
+        <li><a href="/#snapshot">Request an audit</a></li>
+        <li><a href="/#accessibility-statement">Accessibility Statement</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="foot__bar wrap" style="padding-left:24px;padding-right:24px;max-width:1240px;">
+    <span>&copy; 2026 Bridgewell Media Ltd &middot; Leeds, UK</span>
+    <span><a href="/#accessibility-statement">Accessibility Statement</a> &middot; <a href="/#">Privacy</a> &middot; <a href="/#">Terms</a></span>
+  </div>
+</footer>
+</body>
+</html>

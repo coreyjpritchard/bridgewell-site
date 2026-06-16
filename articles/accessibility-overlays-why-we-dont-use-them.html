@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Accessibility overlays: why we don&#x27;t use them — Bridgewell Media</title>
+<meta name="description" content="Accessibility overlays promise a quick fix but routinely break screen readers, attract lawsuits, and don&#x27;t satisfy WCAG. Here&#x27;s why we fix the code instead.">
+<link rel="canonical" href="https://bridgewellmedia.com/articles/accessibility-overlays-why-we-dont-use-them.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@700;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/articles/articles.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "Accessibility overlays: why we don't use them", "description": "Accessibility overlays promise a quick fix but routinely break screen readers, attract lawsuits, and don't satisfy WCAG. Here's why we fix the code instead.", "about": "Web accessibility", "author": {"@type": "Organization", "name": "Bridgewell Media"}, "publisher": {"@type": "Organization", "name": "Bridgewell Media"}, "mainEntityOfPage": "https://bridgewellmedia.com/articles/accessibility-overlays-why-we-dont-use-them.html"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Do accessibility overlays make a website legally compliant?", "acceptedAnswer": {"@type": "Answer", "text": "No. UK and EU courts have accepted overlay-equipped sites as evidence of non-compliance. The Equality Act 2010 and the European Accessibility Act focus on whether disabled users can actually use the site — not on whether a widget is present."}}, {"@type": "Question", "name": "Why do screen reader users dislike overlays?", "acceptedAnswer": {"@type": "Answer", "text": "Screen readers communicate directly with the browser's DOM. An overlay sits on top and often injects elements that conflict with the user's own assistive-technology settings, producing duplicate announcements, focus traps, or silent buttons."}}, {"@type": "Question", "name": "Can an overlay fix WCAG 4.1.2 failures?", "acceptedAnswer": {"@type": "Answer", "text": "Rarely. WCAG 4.1.2 requires that name, role, and value be correct in the underlying markup. An overlay can visually relabel a button but cannot reliably rewrite the accessibility tree in a way all assistive technologies interpret consistently."}}, {"@type": "Question", "name": "What's the alternative to an accessibility overlay?", "acceptedAnswer": {"@type": "Answer", "text": "Fix the actual HTML, CSS, and JavaScript. It takes more work upfront but it's the only approach that holds up under a WCAG audit, works with every assistive technology, and doesn't introduce new problems for the people you're trying to help."}}]}</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to main content</a>
+<header class="topbar">
+  <div class="topbar__inner">
+    <a class="brand" href="/" aria-label="Bridgewell Media — home">
+      <span class="brand__mark" aria-hidden="true">B</span>
+      <span class="brand__name">Bridgewell<span>/</span>Media</span>
+    </a>
+    <nav class="nav" aria-label="Primary">
+      <ul class="nav__links">
+        <li><a href="/#services">Services</a></li>
+        <li><a href="/#why">Why a11y</a></li>
+        <li><a href="/#how">Process</a></li>
+        <li><a href="/articles/">Guides</a></li>
+        <li><a href="/#pricing">Pricing</a></li>
+      </ul>
+      <div class="nav__cta">
+        <a class="btn btn--blue" href="/#snapshot">Free audit <span class="arrow" aria-hidden="true">&#8594;</span></a>
+      </div>
+    </nav>
+  </div>
+</header>
+<main id="main">
+<article class="article band">
+  <div class="wrap">
+    <span class="eyebrow">Our view</span>
+    <h1>Accessibility overlays: why we don&#x27;t use them</h1>
+    <p class="article__meta mono">Plain-spoken view</p>
+    <div class="prose">
+<p>If you've searched for accessibility help recently, you've probably seen ads for overlay products — a single JavaScript snippet that promises to make your website accessible, sometimes overnight. The pitch is compelling: no developer time, no redesign, one subscription fee.</p>
+<p>We don't use them. We won't recommend them. And if a client has one installed when we start work, we remove it before we do anything else. This article explains why.</p>
+<h2>What an overlay actually does</h2>
+<p>An overlay is a third-party script that loads after your page and injects a floating toolbar — typically a small icon in the corner that opens a panel of toggles: "increase font size", "high contrast mode", "pause animations", and so on.</p>
+<p>The script also runs automated checks and attempts to patch certain problems on the fly: adding <code>alt</code> text it guesses from surrounding content, injecting <code>aria</code> attributes into elements that are missing them, rewriting colour values in real time.</p>
+<p>This sounds useful. The problem is what it doesn't do: touch your code. Your HTML stays exactly as it is. The overlay intercepts the rendered page and tries to fix what it finds, after the fact, in the browser, for each visitor, every time.</p>
+<h2>Why that approach breaks the people it's supposed to help</h2>
+<p>Screen readers — software like JAWS, NVDA, and VoiceOver that reads a page aloud — work directly with the browser's accessibility tree: a structured representation of the DOM built from your actual markup. They do not interact with the visual layer the overlay is patching.</p>
+<p>When an overlay injects its own toolbar and widgets, those elements appear in the accessibility tree alongside your existing content. The result is often:</p>
+<ul><li>Duplicate announcements (the screen reader reads both the original element and the overlay's version)</li><li>Focus traps (keyboard users can't escape the overlay panel)</li><li>Conflicts with settings the user has already applied in their own assistive technology</li></ul>
+<p>A blind user who relies on JAWS all day has spent time configuring it to work the way they need. An overlay that rewrites parts of the page in real time is competing with those settings, not helping.</p>
+<p>More than 800 accessibility professionals — researchers, assistive-technology vendors, and disabled users — have signed a public statement opposing overlays on exactly these grounds. The core argument: an overlay cannot reliably fix what it cannot see, which is the assistive-technology experience.</p>
+<h2>The WCAG 4.1.2 problem</h2>
+<p>WCAG success criterion <strong>4.1.2 (Name, Role, Value)</strong> requires that every user interface component — buttons, inputs, toggles, menus — exposes its name, its role, and its current state in the accessibility tree, so assistive technologies can communicate it accurately.</p>
+<p>A common failure is a button built from a <code>&lt;div&gt;</code> instead of a <code>&lt;button&gt;</code> element. It looks like a button. It works like a button with a click handler. But because it has no semantic role, a screen reader announces it as generic text, or skips it entirely.</p>
+<p>An overlay can attempt to inject <code>role="button"</code> into that <code>&lt;div&gt;</code> at runtime. But this fix is fragile: it depends on the overlay running before the user's assistive technology reads the element, it may conflict with other <code>aria</code> attributes already present, and it only works in the browsers the overlay vendor has tested. The underlying failure is still in your code.</p>
+<p>The only reliable fix for a 4.1.2 failure is to change the markup — to use the right element, or to add the correct <code>aria</code> attributes in the source, not as an afterthought injected by a subscription service.</p>
+<h2>Overlays haven't stopped lawsuits — they've featured in them</h2>
+<p>If the technical argument doesn't land, consider the legal track record.</p>
+<p>Companies in the United States — where ADA accessibility litigation is well-established — have been sued while running overlays. In some cases, the overlay was cited by plaintiffs as evidence that the company knew about accessibility problems and chose a cheap workaround instead of fixing them. That is not a defence; it is a paper trail.</p>
+<p>UK law under the Equality Act 2010 and, for public sector and larger digital services, the European Accessibility Act coming into force for private businesses in 2025, focuses on whether a disabled person can actually use the service — not on whether you've installed a widget that claims to help. An overlay that breaks screen readers doesn't satisfy that test.</p>
+<h2>What we do instead</h2>
+<p>We fix the markup. That means:</p>
+<ul><li>Correcting semantic structure: headings in the right order, lists that are actually lists, buttons that are actually <code>&lt;button&gt;</code> elements</li><li>Adding descriptive <code>alt</code> text written by a human who understands the image's purpose in context</li><li>Making keyboard navigation work without a mouse — Tab order, focus indicators, skip links</li><li>Ensuring form labels are programmatically associated with their inputs (another common 4.1.2 failure)</li><li>Writing ARIA attributes where native HTML semantics aren't enough — and only where they're needed</li></ul>
+<p>We also tell clients plainly that automated tools — the kind overlays rely on — catch somewhere around 30–40% of WCAG issues. The rest require a human to test, because they involve context, judgment, and actually using the page with a keyboard or screen reader.</p>
+<h2>The business case for doing it properly</h2>
+<p>A properly marked-up page works better for everyone, not just assistive-technology users. Search engines read the same accessibility tree screen readers use. A heading structure that makes sense to JAWS makes sense to Google. Descriptive link text that helps a screen reader user navigate a page also helps a search engine understand what the page links to.</p>
+<p>Fixing accessibility in the code is a one-time cost that lives in your codebase. An overlay is a recurring subscription that can be turned off by the vendor, conflict with future browser updates, and — as the legal record shows — does not transfer legal risk away from you.</p>
+<p>---</p>
+<p>If you're not sure where your site stands, our free <strong>Accessibility Snapshot</strong> gives you an automated scan plus a short human review, delivered as a plain-English report — no jargon, no sales pitch, just an honest picture of what's there. You'll find the link on this page.</p>
+    </div>
+
+  </div>
+</article>
+<section class="finalcta" aria-labelledby="final-h">
+  <div class="finalcta__inner wrap" style="padding-left:24px;padding-right:24px;max-width:1240px;">
+    <div>
+      <span class="eyebrow" style="background:var(--teal);color:#FFFFFF;border-color:#FFFFFF;">Free &middot; No catch</span>
+      <h2 id="final-h" style="margin-top:1rem;">See what your site is shutting out — for free.</h2>
+      <p>Drop in your website address and we'll run an automated WCAG 2.2 check plus a quick human review. A plain-English report lands in your inbox — what's failing, why it matters, and what it'd take to fix. No card, no sales pressure.</p>
+    </div>
+    <div class="finalcta__act">
+      <a class="btn btn--sun" href="/#snapshot">Get a free Accessibility Snapshot <span class="arrow" aria-hidden="true">&#8594;</span></a>
+      <a class="btn btn--ghost" href="mailto:hello@bridgewell.media" style="border-color:#FFFFFF;color:#FFFFFF;background:transparent;">Or just email us</a>
+      <span class="finalcta__note">Typical reply time: same working day.</span>
+    </div>
+  </div>
+</section>
+</main>
+<footer aria-labelledby="foot-h">
+  <h2 id="foot-h" class="skip">Footer</h2>
+  <div class="foot__grid wrap" style="padding-left:24px;padding-right:24px;max-width:1240px;">
+    <div class="foot__brand">
+      <span class="brand__name" style="font-family:'Archivo';font-weight:900;text-transform:uppercase;font-size:1.3rem;">Bridgewell<span>/</span>Media</span>
+      <p>Honest, accessible web design for UK small businesses. We practice what we sell — this site is built to the same standard we hold yours to.</p>
+      <span class="a11y-badge mono" style="margin-top:1.2rem;"><span aria-hidden="true">&#10003;</span> Built to WCAG 2.2 AA</span>
+    </div>
+    <div class="foot__col">
+      <h4>Services</h4>
+      <ul>
+        <li><a href="/#services">Website design &amp; build</a></li>
+        <li><a href="/#services">Accessibility audit &amp; fixes</a></li>
+        <li><a href="/#services">Care plans</a></li>
+        <li><a href="/#snapshot">Free Snapshot</a></li>
+      </ul>
+    </div>
+    <div class="foot__col">
+      <h4>Guides</h4>
+      <ul>
+        <li><a href="/articles/">All guides</a></li>
+        <li><a href="/#why">Why accessibility</a></li>
+        <li><a href="/#how">Our process</a></li>
+        <li><a href="/#pricing">Pricing</a></li>
+      </ul>
+    </div>
+    <div class="foot__col">
+      <h4>Contact</h4>
+      <ul>
+        <li><a href="mailto:hello@bridgewell.media">hello@bridgewell.media</a></li>
+        <li><a href="tel:+441132000000">0113 200 0000</a></li>
+        <li><a href="/#snapshot">Request an audit</a></li>
+        <li><a href="/#accessibility-statement">Accessibility Statement</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="foot__bar wrap" style="padding-left:24px;padding-right:24px;max-width:1240px;">
+    <span>&copy; 2026 Bridgewell Media Ltd &middot; Leeds, UK</span>
+    <span><a href="/#accessibility-statement">Accessibility Statement</a> &middot; <a href="/#">Privacy</a> &middot; <a href="/#">Terms</a></span>
+  </div>
+</footer>
+</body>
+</html>

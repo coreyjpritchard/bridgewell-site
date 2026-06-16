@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hard-to-read text (low contrast): what it is, who it shuts out, and how to fix it — Bridgewell Media</title>
+<meta name="description" content="Light grey on white, faded buttons, barely-there links — low contrast text loses you customers. Here&#x27;s what WCAG 1.4.3 requires and how to fix it properly.">
+<link rel="canonical" href="https://bridgewellmedia.com/articles/colour-contrast.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@700;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/articles/articles.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "Hard-to-read text (low contrast): what it is, who it shuts out, and how to fix it", "description": "Light grey on white, faded buttons, barely-there links — low contrast text loses you customers. Here's what WCAG 1.4.3 requires and how to fix it properly.", "about": "Web accessibility", "author": {"@type": "Organization", "name": "Bridgewell Media"}, "publisher": {"@type": "Organization", "name": "Bridgewell Media"}, "mainEntityOfPage": "https://bridgewellmedia.com/articles/colour-contrast.html"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What contrast ratio does my text actually need to pass?", "acceptedAnswer": {"@type": "Answer", "text": "Most body text needs a contrast ratio of at least 4.5:1 against its background (WCAG 1.4.3). Large text — 18pt or 14pt bold — only needs 3:1. These are minimums, not targets; higher contrast is always better for readability."}}, {"@type": "Question", "name": "Will an accessibility overlay or widget fix my contrast issues?", "acceptedAnswer": {"@type": "Answer", "text": "No. Overlays sit on top of your page and cannot reliably recolour text across all browsers and screen readers. They frequently conflict with assistive technology, and several businesses have faced legal action despite having one installed. The only real fix is changing the colours in your CSS."}}, {"@type": "Question", "name": "Can an automated scan tell me if all my contrast is compliant?", "acceptedAnswer": {"@type": "Answer", "text": "Automated tools catch a reliable portion of contrast failures — roughly 30–40% of WCAG issues overall — but they can miss text inside images, certain gradient backgrounds, or text that only appears in specific states (hover, focus, error). A human review catches what the scanner doesn't."}}, {"@type": "Question", "name": "Does this affect my Google ranking?", "acceptedAnswer": {"@type": "Answer", "text": "Not directly, but indirectly yes. Poor readability pushes up bounce rate and reduces time on page — both signals that correlate with lower rankings. Google's own Lighthouse audit flags low contrast as a usability issue."}}]}</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to main content</a>
+<header class="topbar">
+  <div class="topbar__inner">
+    <a class="brand" href="/" aria-label="Bridgewell Media — home">
+      <span class="brand__mark" aria-hidden="true">B</span>
+      <span class="brand__name">Bridgewell<span>/</span>Media</span>
+    </a>
+    <nav class="nav" aria-label="Primary">
+      <ul class="nav__links">
+        <li><a href="/#services">Services</a></li>
+        <li><a href="/#why">Why a11y</a></li>
+        <li><a href="/#how">Process</a></li>
+        <li><a href="/articles/">Guides</a></li>
+        <li><a href="/#pricing">Pricing</a></li>
+      </ul>
+      <div class="nav__cta">
+        <a class="btn btn--blue" href="/#snapshot">Free audit <span class="arrow" aria-hidden="true">&#8594;</span></a>
+      </div>
+    </nav>
+  </div>
+</header>
+<main id="main">
+<article class="article band">
+  <div class="wrap">
+    <span class="eyebrow">Accessibility guide</span>
+    <h1>Hard-to-read text (low contrast): what it is, who it shuts out, and how to fix it</h1>
+    <p class="article__meta mono">WCAG issue explained</p>
+    <div class="prose">
+<h2>What it is</h2>
+<p>Low contrast happens when the colour of your text is too close to the colour of its background. Think light grey body copy on a white page, pale blue links that almost disappear, or a "Book now" button where the label is barely distinguishable from the button itself.</p>
+<p>The Web Content Accessibility Guidelines set a minimum in <strong>WCAG success criterion 1.4.3 (Contrast — Minimum)</strong>. For standard body text, the foreground-to-background contrast ratio must be at least <strong>4.5:1</strong>. For large text — defined as 18pt (roughly 24px) or 14pt bold (roughly 18.67px bold) — the minimum drops to <strong>3:1</strong>.</p>
+<p>A contrast ratio is simply a number: 1:1 is identical colours (invisible text); 21:1 is black on white (maximum). Most designers don't calculate these by eye; they use a tool. But many sites still ship with ratios of 2:1 or 3:1 on body text, often because a brand colour that looks fine on a designer's calibrated monitor fails badly on a budget laptop screen in a bright room.</p>
+<p>The failure tends to creep in at a few predictable points: placeholder text in form fields, disabled-state buttons, footer text, small print, and brand colours applied directly to text without checking the numbers.</p>
+<p>---</p>
+<h2>Who it shuts out</h2>
+<p>The obvious answer is people with low vision or certain types of colour blindness — and yes, an estimated 1 in 12 men in the UK have some form of colour vision deficiency. But the real business answer is broader than that.</p>
+<p><strong>Older customers.</strong> Contrast sensitivity declines with age. By the time someone is in their 60s, they need significantly more contrast to read comfortably than they did in their 30s. If your customers skew older — and for most UK small businesses, a good share do — low contrast is actively losing you sales.</p>
+<p><strong>Everyone on a phone in daylight.</strong> Screen glare on a smartphone in sunshine reduces effective contrast. Text that passes the 4.5:1 test barely scrapes by; text that fails it becomes genuinely unreadable outdoors.</p>
+<p><strong>People with migraines or reading difficulties.</strong> Low contrast forces the eye to work harder. Users who already find sustained reading difficult — whether due to dyslexia, migraine sensitivity, or fatigue — will leave rather than strain.</p>
+<p><strong>Anyone on a cheap or older monitor.</strong> Not everyone has a high-end display. The customer browsing your site on a five-year-old laptop in a bright kitchen is not an edge case.</p>
+<p>Losing these users doesn't show up as an error in your analytics. It shows up as a slightly higher bounce rate and slightly lower conversions — quietly, persistently, every day.</p>
+<p>---</p>
+<h2>How to tell if your site has it</h2>
+<p>The fastest self-check: look at your site on your phone in a well-lit room, then step outside. If you're squinting or scrolling past text rather than reading it, there's a contrast problem.</p>
+<p>For a more systematic check:</p>
+<ul><li><strong>Open Chrome DevTools</strong> (right-click → Inspect), click any text element, then click the colour swatch next to the <code>color</code> property in the Styles panel. Chrome shows the contrast ratio inline and flags it as failing or passing AA.</li><li><strong>Run Google Lighthouse.</strong> In Chrome DevTools → Lighthouse → Accessibility. It reports low-contrast text elements directly, with the calculated ratio and the required minimum.</li><li><strong>Check your brand colours.</strong> If your primary brand colour is a mid-tone (anything that looks like a pastel, or a colour that could go either on a dark or light background), it almost certainly fails on white.</li></ul>
+<p>Watch especially for: grey placeholder text in input fields, footer text in a light brand colour, price text or legal small print styled lighter than the main copy, and call-to-action buttons where the label colour was chosen for aesthetics rather than readability.</p>
+<p>---</p>
+<h2>How we fix it</h2>
+<p>The fix is always a colour change in the CSS — nothing else. There are no shortcuts.</p>
+<p>We don't use accessibility overlays or widgets. These tools layer JavaScript on top of your page and attempt to recolour text dynamically. In practice, they conflict with screen readers, fail unpredictably across browsers, and don't actually change your underlying markup. Several businesses have been sued under UK and US accessibility law while running an overlay, because courts look at whether the underlying site is accessible — not whether a patch is attached. We refuse to recommend them.</p>
+<p>The real fix looks like this:</p>
+<p>```css /* Before — fails WCAG 1.4.3 at approximately 3.1:1 on white */ body { color: #999999; }</p>
+<p>/* After — passes at 7:1 on white */ body { color: #595959; } ```</p>
+<p>For a brand colour that fails when used as text, we either darken it (for text on light backgrounds) or lighten it (for text on dark backgrounds) until it meets 4.5:1, then test it against your actual background colours — not just white.</p>
+<h3>What automated tools catch, and what they don't</h3>
+<p>Automated scanners like Axe and Lighthouse reliably catch <strong>static text</strong> where the colour values are declared directly in your CSS and the background is a flat colour. That covers most of the low-hanging fruit.</p>
+<p>What they miss:</p>
+<ul><li><strong>Text in images.</strong> A banner with text baked into a photo can fail badly; no scanner reads it.</li><li><strong>Gradient backgrounds.</strong> If the background shifts from dark to light, contrast varies across the text — a scanner typically checks one point.</li><li><strong>Dynamic states.</strong> Text that only appears on hover, focus, or in an error message is often missed unless the scanner is set up to trigger those states deliberately.</li><li><strong>User-submitted content.</strong> If your CMS lets staff or customers post content, the scanner can't check what isn't on the page yet.</li></ul>
+<p>This is why automated tools, used alone, reliably catch only around 30–40% of WCAG issues. The rest requires a human looking at the site across its actual states and content.</p>
+<h3>Our process</h3>
+<p>We run an automated audit first to surface the obvious failures fast. Then a human reviewer goes through the site in real states — forms filled in, errors triggered, hover and focus states active — checking what the scanner couldn't. Every finding is reported back to you in plain English, not a spreadsheet of WCAG references.</p>
+<p>We fix contrast issues by updating your CSS (or your design tokens, if you use a design system), so the fix is permanent, not fragile.</p>
+<p>---</p>
+<p>If you want to know exactly where your site stands, our <strong>free Accessibility Snapshot</strong> gives you an automated WCAG scan plus a quick human review, delivered as a plain-English report — no jargon, no upsell pressure. It's a useful starting point whether you go on to work with us or not. You can request one using the form on this page.</p>
+    </div>
+
+  </div>
+</article>
+<section class="finalcta" aria-labelledby="final-h">
+  <div class="finalcta__inner wrap" style="padding-left:24px;padding-right:24px;max-width:1240px;">
+    <div>
+      <span class="eyebrow" style="background:var(--teal);color:#FFFFFF;border-color:#FFFFFF;">Free &middot; No catch</span>
+      <h2 id="final-h" style="margin-top:1rem;">See what your site is shutting out — for free.</h2>
+      <p>Drop in your website address and we'll run an automated WCAG 2.2 check plus a quick human review. A plain-English report lands in your inbox — what's failing, why it matters, and what it'd take to fix. No card, no sales pressure.</p>
+    </div>
+    <div class="finalcta__act">
+      <a class="btn btn--sun" href="/#snapshot">Get a free Accessibility Snapshot <span class="arrow" aria-hidden="true">&#8594;</span></a>
+      <a class="btn btn--ghost" href="mailto:hello@bridgewell.media" style="border-color:#FFFFFF;color:#FFFFFF;background:transparent;">Or just email us</a>
+      <span class="finalcta__note">Typical reply time: same working day.</span>
+    </div>
+  </div>
+</section>
+</main>
+<footer aria-labelledby="foot-h">
+  <h2 id="foot-h" class="skip">Footer</h2>
+  <div class="foot__grid wrap" style="padding-left:24px;padding-right:24px;max-width:1240px;">
+    <div class="foot__brand">
+      <span class="brand__name" style="font-family:'Archivo';font-weight:900;text-transform:uppercase;font-size:1.3rem;">Bridgewell<span>/</span>Media</span>
+      <p>Honest, accessible web design for UK small businesses. We practice what we sell — this site is built to the same standard we hold yours to.</p>
+      <span class="a11y-badge mono" style="margin-top:1.2rem;"><span aria-hidden="true">&#10003;</span> Built to WCAG 2.2 AA</span>
+    </div>
+    <div class="foot__col">
+      <h4>Services</h4>
+      <ul>
+        <li><a href="/#services">Website design &amp; build</a></li>
+        <li><a href="/#services">Accessibility audit &amp; fixes</a></li>
+        <li><a href="/#services">Care plans</a></li>
+        <li><a href="/#snapshot">Free Snapshot</a></li>
+      </ul>
+    </div>
+    <div class="foot__col">
+      <h4>Guides</h4>
+      <ul>
+        <li><a href="/articles/">All guides</a></li>
+        <li><a href="/#why">Why accessibility</a></li>
+        <li><a href="/#how">Our process</a></li>
+        <li><a href="/#pricing">Pricing</a></li>
+      </ul>
+    </div>
+    <div class="foot__col">
+      <h4>Contact</h4>
+      <ul>
+        <li><a href="mailto:hello@bridgewell.media">hello@bridgewell.media</a></li>
+        <li><a href="tel:+441132000000">0113 200 0000</a></li>
+        <li><a href="/#snapshot">Request an audit</a></li>
+        <li><a href="/#accessibility-statement">Accessibility Statement</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="foot__bar wrap" style="padding-left:24px;padding-right:24px;max-width:1240px;">
+    <span>&copy; 2026 Bridgewell Media Ltd &middot; Leeds, UK</span>
+    <span><a href="/#accessibility-statement">Accessibility Statement</a> &middot; <a href="/#">Privacy</a> &middot; <a href="/#">Terms</a></span>
+  </div>
+</footer>
+</body>
+</html>
